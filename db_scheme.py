@@ -22,7 +22,6 @@ def create_postgresql_connection():
 def create_scheme(cursor):
     cursor.execute('''
         CREATE TABLE article(
-            id PRIMARY KEY,
             title VARCHAR(300) NOT NULL,
             text TEXT NOT NULL,
             image 
@@ -30,31 +29,45 @@ def create_scheme(cursor):
     ''')
 
     cursor.execute('''
-        CREATE TABLE vulnerability(
-            id PRIMARY KEY,
+        CREATE TABLE vulnerability(,
             title VARCHAR(200) NOT NULL,
             hits INTEGER NOT NULL,
-            related_products TEXT []
+            related_products TEXT [] NOT NULL
         );
     ''')
 
     cursor.execute('''
         CREATE TABLE malware(
-            id PRIMARY KEY,
             name VARCHAR(100) NOT NULL,
             hits INTEGER NOT NULL,
-            targets TEXT []
+            targets TEXT [] NOT NULL
         );
     ''')
 
     cursor.execute('''
         CREATE TABLE suspicious_ip(
-            id PRIMARY KEY,
             ip_address TEXT NOT NULL,
             hits INTEGER NOT NULL
-            
+            first_seen TEXT NOT NULL
         )
     ''')
+
+
+def save_suspicious_ip_address(cursor, ip_address, hits, first_seen):
+    cursor.execute('''
+        INSERT INTO suspicious_ip_address(ip_address_hits,first_seen)
+        VALUES (%s,%d,%s)
+        ''', (ip_address, hits, first_seen))
+
+
+def save_malware(cursor, name, hits, targets):
+    cursor.execute('''
+        INSERT INTO malware (name,hits,targets) 
+    ''')
+
+
+def save_vulnerability(cursor, cve, hits, related_products):
+    pass
 
 
 def close_postgresql_connection(connection, cursor):

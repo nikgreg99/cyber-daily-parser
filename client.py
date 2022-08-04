@@ -1,14 +1,14 @@
 from gmail_service import search_messages, read_message, gmail_authenticate
+from cyber_parser import cyber_daily_html_to_text, parse_malware_section, parse_vulnerability_section,parse_suspicious_ip_section,parse_article_section
 
 
 def main():
-    service = gmail_authenticate()
-    query = 'Cyber Daily'
-    # get emails that match the query you specify
-    messages = search_messages(service,query)
-    # for each email matched, read it (output plain/text to console & save HTML and attachments)
-    for message in messages:
-        read_message(service, message)
+    cyber_daily_html_to_text()
+    file = open('em_17/index_text.txt')
+    parse_article_section(file)
+    parse_vulnerability_section(file)
+    parse_malware_section(file)
+    parse_suspicious_ip_section(file)
 
 
 if __name__ == '__main__':
