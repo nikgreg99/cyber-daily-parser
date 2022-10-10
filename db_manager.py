@@ -3,11 +3,9 @@ from psycopg2 import Error
 
 table_names = ['cyber_daily_article','cyber_daily_vulnerability','cyber_daily_malware','cyber_daily_suspicious_ip','cyber_daily_podcast']
 
-def create_postgresql_connection(user,password,database,host='localhost',port='5432'):
+def create_postgresql_connection(user,password,database,host='localhost', port='5432'):
     try:
-        psql_connection = connect(user=user,host
-        =host,password=password,dbname=database)
-        psql_connection.set_client_encoding('UTF8')
+        psql_connection = connect(user=user,host=host,password=password,dbname=database,port=port)
         psql_connection.autocommit = True
         cursor = psql_connection.cursor()
         print("PostgreSQL server info", psql_connection.get_dsn_parameters(), "\n")
