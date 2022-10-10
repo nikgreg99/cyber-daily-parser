@@ -1,0 +1,218 @@
+Cyber Daily highlights daily news and trending threats provided by Recorded
+Future
+
+|
+
+| |
+
+![Cyber Daily Header](https://go.recordedfuture.com/hs-
+fs/hubfs/logos-2021/cyber-daily.png?width=1370&upscale=true&name=cyber-
+daily.png)  
+  
+---  
+|
+
+| |
+
+ __ _Cyber Daily highlights daily news and trending threats provided by
+Recorded Future_  
+
+## Podcast: The scariest piece of malware since Stuxnet
+
+![](https://go.recordedfuture.com/hs-fs/hubfs/clickhere-
+cyberdaily.gif?width=1200&height=696&upscale=true&name=clickhere-
+cyberdaily.gif)
+
+Back in April, cybersecurity officials discovered the notorious “Industroyer”
+malware in the Ukrainian electrical grid. It might have been the scariest
+infrastructure hack since malware destroyed centrifuges at an Iranian uranium
+enrichment plant in 2010 – were it not for a TGIF miracle.  
+  
+---  
+|
+
+|
+
+## FBI, Secret Service join Kentucky investigation into $4 million cybercrime
+theft
+
+![](https://therecord.media/wp-content/uploads/2022/08/alex-mertz-0YaBs82mdWs-
+unsplash-1-1024x575.jpg)
+
+The government of Lexington, Kentucky is working with the FBI and Secret
+Service to investigate $4 million in federal rent assistance and housing funds
+allegedly stolen by cybercriminals. In a statement to The Record, Mayor Linda
+Gorton said the city is already taking internal steps to examine how
+cybercriminals managed to circumvent the city’s internal […]
+
+The post FBI, Secret Service join Kentucky investigation into $4 million
+cybercrime theft appeared first on The Record by Recorded Future.  
+  
+---  
+  
+## China-linked hackers target organizations operating in South China Sea
+
+![](https://therecord.media/wp-content/uploads/2022/08/sergio-li-
+yDwhF_3Zn9A-unsplash-1-1024x566.jpg)
+
+A group of China-based hackers is targeting organizations in countries across
+the Pacific Ocean and is specifically seeking information related to the
+hotly-disputed South China Sea, according to a new report from Proofpoint. The
+targets of the campaign are governments and organizations in Australia,
+Malaysia, and Europe, as well as entities that operate in the […]
+
+The post China-linked hackers target organizations operating in South China
+Sea appeared first on The Record by Recorded Future.  
+  
+## FBI warns about cyber criminals exploiting DeFi vulnerabilities
+
+![](https://therecord.media/wp-
+content/uploads/2022/04/MOSHED-2022-4-25-11-22-31-1024x579.jpg)
+
+Warning comes after a string of attacks targeting DeFi cryptocurrency
+platforms.
+
+The post FBI warns about cyber criminals exploiting DeFi vulnerabilities
+appeared first on The Record by Recorded Future.  
+  
+## Google announces open source vulnerability reward program after Log4j,
+Codecov issues
+
+![Google sign](https://therecord.media/wp-content/uploads/2022/01/google-
+banner-sign-1024x591.jpg)
+
+Google announced on Tuesday that it is launching an open source software
+vulnerability bug bounty program, offering cybersecurity researchers up to
+$31,337 in rewards for spotting bugs that can lead to supply chain compromises
+or other issues. The Open Source Software Vulnerability Rewards Program (OSS
+VRP) is one of the first prominent open source-specific vulnerability […]
+
+The post Google announces open source vulnerability reward program after
+Log4j, Codecov issues appeared first on The Record by Recorded Future.  
+  
+## Exploited Vulnerabilities
+
+CVE-2021-44228
+
+Hits: 16 | Related products: Apache Log4j, Apache Log4j 2, Apache Software
+Foundation Apache HTTP Server, Java, VMware Horizon
+
+CVE-2022-30190
+
+Hits: 3 | Related products: Microsoft Windows, Microsoft Support Diagnostic
+Tool, Microsoft Office, Microsoft Office Word, Microsoft Office 2013
+
+CVE-2017-5753
+
+Hits: 2 | Related products: Microsoft Windows, Linux, Mac, iOS, Linux Kernel
+
+CVE-2021-36260
+
+Hits: 2 | Related products: Python, Moobot, Metabase 敏感信息泄露漏洞, GitHub, Roblox
+
+CVE-2022-1310
+
+Hits: 2 | Related products: Google Chrome, V8 JavaScript, Sesin.at, Ubuntu,
+Debian  
+  
+## Malware
+
+Scanbox Framework
+
+Hits: 20 | Targets: Pakistan, Netherlands, Pakistani government, Australian
+Government, National Foreign Trade Council
+
+Ransom X
+
+Hits: 3 | Targets: France, Taiwan, Konica Minolta, Tyler Technologies Inc,
+Société de transport de Montréal
+
+Lockbit 3[.]0
+
+Hits: 3 | Targets: Microsoft Antispyware, Rovagnati, Microsoft Windows, Fosun
+International Limited, UNIR S.A.
+
+MagicWeb
+
+Hits: 3 | Targets: Microsoft
+
+Stuxnet
+
+Hits: 2 | Targets: Iran, Industrial Control Systems, Microsoft Windows,
+Centrifuge, SCADA and ICS Products and Technologies  
+  
+## Suspicious IP Addresses
+
+179[.]60[.]146[.]25
+
+Hits: 29 | First seen in Recorded Future on 29 Mar 2015 20:55:35
+
+42[.]194[.]199[.]231
+
+Hits: 22 | First seen in Recorded Future on 16 May 2021 08:06:58
+
+175[.]27[.]157[.]133
+
+Hits: 17 | First seen in Recorded Future on 01 Aug 2022 08:05:42
+
+106[.]14[.]147[.]77
+
+Hits: 17 | First seen in Recorded Future on 28 Aug 2019 10:33:37
+
+194[.]135[.]24[.]251
+
+Hits: 17 | First seen in Recorded Future on 14 Jul 2022 19:53:32  
+  
+| | |  
+  
+---  
+|
+
+###  Presented by Recorded Future
+
+##
+
+Intelligence: The Cornerstone of Toshiba’s Aggressive Security Transformation
+
+![](https://go.recordedfuture.com/hs-fs/hubfs/toshiba-
+casestudy.gif?width=1200&height=682&upscale=true&name=toshiba-casestudy.gif)
+
+Learn how Cyber Security Center at Toshiba protects their business with the
+Recorded Future Intelligence Cloud
+
+_
+
+Cyber Daily works best when combined with Express, a free browser extension
+from Recorded Future that delivers additional intelligence via risk scores and
+context on IP addresses, domains, hashes, URLs, and CVEs. To see risk scores
+in Cyber Daily, just Install Express and click  View as a Web Page
+
+_ Know someone who might enjoy Cyber Daily?  
+  
+  
+---  
+|
+
+![Share on
+Facebook](https://static.hubspot.com/final/img/common/icons/social/facebook-24x24.png)
+![Share on
+LinkedIn](https://static.hubspot.com/final/img/common/icons/social/linkedin-24x24.png)
+![Share on
+Twitter](https://static.hubspot.com/final/img/common/icons/social/twitter-24x24.png)  
+  
+---  
+  
+| |
+
+© 2021 Recorded Future, Inc. 363 Highland Avenue, Somerville, MA 02144
+
+You received this email because you are subscribed to Cyber Daily from
+Recorded Future. The information in this email may not be reused or
+redistributed without express written consent of Recorded Future.
+
+Unsubscribe | Privacy | Terms | FAQ  
+  
+---  
+![Web Bug from
+https://go.recordedfuture.com/e3t/Cto/F7+113/c1CFj04/VVn19l4WBQgKW64YFG-153rDkW9k7knf4Pn6Y4W3tskp23D03S_103](data:image/png;base64,RkZGRkZGLTAuMC5wbmc=)
+

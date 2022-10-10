@@ -1,56 +1,20 @@
+"""
 from __future__ import print_function
 
 import os.path
 import pickle
 
-import google
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from base64 import urlsafe_b64decode
 
-
+from utils import gen_folder_name, get_size_format, save_html_byte_content
 
 SCOPES = 'https://www.googleapis.com/auth/gmail.settings.basic'
 
 
-def get_size_format(b, factor=1024, suffix='B'):
-    """
-    Scale bytes to a proper format
-    e.g:
-        1253656 => '1.20MB'
-    """
-    for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
-        if b < factor:
-            return f"{b:.2f}{unit}{suffix}"
-        b /= factor
-    return f"{b:.2f}Y{suffix}"
-
-
-def clean(text):
-    # pretty text for naming a folder
-    return "".join(c if c.isalnum() else '_' for c in text)
-
-
-def gen_folder_name(text):
-    folder_name = clean(text)
-    folder_count = 0
-    while os.path.isdir(folder_name):
-        folder_count += 1
-        if folder_name[-1].isdigit() and folder_name[-2] == "_":
-            folder_name = f"{folder_name[:-2]}_{folder_count}"
-        elif folder_name[-2:].isdigit() and folder_name[-3] == "_":
-            folder_name = f"{folder_name[:-3]}_{folder_count}"
-        else:
-            folder_name = f"{folder_name[:-3]}_{folder_count}"
-    os.mkdir(folder_name)
-    return folder_name
-
-
 def parse_parts(service, parts, folder_name, message):
-    """
-        Utility function that parses email partition's content
-    """
     if parts:
         for part in parts:
             filename = part.get('filename')
@@ -66,16 +30,9 @@ def parse_parts(service, parts, folder_name, message):
                 # parse email mail in case of plain text
                 if data:
                     text = urlsafe_b64decode(data).decode()
-                    print(text)
             elif mime_type == 'text/html':
                 # parse HTML content and save the content
-                if not filename:
-                    filename = 'index.html'
-                filepath = os.path.join(folder_name, filename)
-                print(data)
-                print('Saving HTML to', filepath)
-                with open(filepath, 'wb') as f:
-                    f.write(urlsafe_b64decode(data))
+                save_html_byte_content(folder_name,filename,data)
             else:
                 for part_header in part_headers:
                     part_header_name = part_header.get('name')
@@ -128,7 +85,6 @@ def search_messages(service, query):
 
 
 def read_message(service, message):
-    print('ok')
     msg = service.users().messages().get(userId='me', id=message['id'], format='full').execute()
     payload = msg['payload']
     headers = payload.get('headers')
@@ -146,4 +102,6 @@ def read_message(service, message):
         if not has_subject:
             if not os.path.isdir(folder_name):
                 os.mkdir(folder_name)
+                
         parse_parts(service, parts, folder_name, message)
+"""
