@@ -93,11 +93,13 @@ def parse_article_section(file,cursor):
     while is_not_block_ended:
         title = ''
         while True:
-            line = file.readline()
-            is_not_block_ended = False if '## Exploited Vulnerabilities' in line else True
-            if not is_not_block_ended or line == '\n':
+          line = file.readline()
+          is_not_block_ended = False if '## Exploited Vulnerabilities' in line else True
+          if not is_not_block_ended or line == '\n':
                 break
-            title += line
+          title += line
+        if not is_not_block_ended:
+            break
         title = re.sub('## ', '', title)
         title = re.sub('\n', '', title)
         print('Title:', title)
@@ -111,8 +113,8 @@ def parse_article_section(file,cursor):
 
 # STATUS: OK
 def parse_vulnerability_section(file,cursor):
-    print('***  VULNERABILITY EXPLOIT   ***')
     file.readline()
+    print('***  VULNERABILITY EXPLOIT   ***')
     is_not_block_ended = True
     # Check if block is ended
     while is_not_block_ended:
@@ -133,15 +135,15 @@ def parse_vulnerability_section(file,cursor):
         replace_pattern_with_empty_string(hits_and_related_products, '\n')
         # Means that we have both hits and related_products
         related_products = []
-        if len(hits_and_related_products) > 2:
+        if len(hits_and_related_products) == 2:
             hits = hits_and_related_products[0]
             num_hits = hits[6:]
-            related_products.append(hits_and_related_products[1].split(','))
+            related_products = hits_and_related_products[1].split(',')
             related_products[0] = related_products[0][19:]
-            print('Related products: ', related_products)
         else:
             num_hits = hits_and_related_products[0][6:]
         print('Hits:', num_hits)
+        print('Related products: ', related_products)
         save_vulnerability(cursor,CVE,num_hits,related_products)
 
 
