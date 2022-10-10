@@ -4,15 +4,16 @@ import os
 import html2text
 import re
 
-from db_manager import save_article, save_malware, save_supsicious_ip, save_vulnerability
+from db_manager import save_article, save_malware, save_podcast, save_supsicious_ip, save_vulnerability
 
 
 def parse_cyber_daily_newsletter(file_path,cursor):
     newsletter = open(file_path, 'r', encoding='utf-8')
     is_podcast_section, starting_pos = is_podcast_section_present(newsletter)
-    newsletter.seek(0)
     if is_podcast_section:
-        parse_podcast_section(newsletter, starting_pos)
+        parse_podcast_section(newsletter, starting_pos,cursor)
+    else:
+        newsletter.seek(0)
     parse_article_section(newsletter,cursor)
     parse_vulnerability_section(newsletter,cursor)
     parse_malware_section(newsletter,cursor)
@@ -48,8 +49,8 @@ def read_line_at_new_line(file):
 def cyber_daily_html_to_text(folder):
     cur_dir = os.path.dirname(os.path.realpath(__file__))
     folder_path = os.path.join(cur_dir, folder)
-    html_2_text_obj = html2text.HTML2Text()
-    html_2_text_obj.ignore_links = True
+    html_to_text_obj = html2text.HTML2Text()
+    html_to_text_obj.ignore_links = True
     html_filepath = os.path.join(folder_path, 'index.html')
     text_filepath = os.path.join(folder_path, 'index_text.txt')
     with open(html_filepath, 'rb') as f:
@@ -57,7 +58,7 @@ def cyber_daily_html_to_text(folder):
         f_content = f_bytes.decode('utf8')
         soup = BeautifulSoup(f_content, 'html.parser')
     with open(text_filepath, 'w', encoding='utf-8') as f:
-        for line in html_2_text_obj.handle(str(soup)):
+        for line in html_to_text_obj.handle(str(soup)):
             f.write(line)
         f.seek(0)
     return text_filepath
@@ -65,23 +66,22 @@ def cyber_daily_html_to_text(folder):
 
 def is_podcast_section_present(file):
     last_pos = skip_lines(file, '## Podcast')
-    print(last_pos)
     if last_pos > 0:
         return True, last_pos
     return False, 0
 
 
-def parse_podcast_section(file, last_pos):
+def parse_podcast_section(file, last_pos,cursor):
     file.seek(last_pos)
     print('*** PODCAST ***')
-    podcast_title = ''
-    while True:
-        line = file.readline()
-        if line == '\n':
-            break
-        podcast_title += line
-        read_line_at_new_line(file)
-        print('Podcast title: ', podcast_title)
+    podcast_title = read_line_at_new_line(file)
+    podcast_title = re.sub('## Podcast: ','',podcast_title)
+    podcast_title = re.sub('\n','',podcast_title)
+    print('Podcast title: ', podcast_title)
+    read_line_at_new_line(file)
+    podcast_text =  read_line_at_new_line(file)
+    print('Podcast text: ',podcast_text)
+    save_podcast(cursor,podcast_title,podcast_text)
 
 
 # STATUS: OK
@@ -98,8 +98,6 @@ def parse_article_section(file,cursor):
             if not is_not_block_ended or line == '\n':
                 break
             title += line
-        if not is_not_block_ended:
-            break
         title = re.sub('## ', '', title)
         title = re.sub('\n', '', title)
         print('Title:', title)

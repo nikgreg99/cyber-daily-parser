@@ -1,18 +1,4 @@
 import os
-from base64 import urlsafe_b64decode
-
-
-def get_size_format(b, factor=1024, suffix='B'):
-    """
-    Scale bytes to a proper format
-    e.g:
-        1253656 => '1.20MB'
-    """
-    for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
-        if b < factor:
-            return f"{b:.2f}{unit}{suffix}"
-        b /= factor
-    return f"{b:.2f}Y{suffix}"
 
 
 def clean(text):
@@ -34,13 +20,10 @@ def gen_folder_name(text):
     os.mkdir(folder_name)
     return folder_name
 
-
 def save_html_byte_content(folder_name, data, filename=''):
     if not filename:
         filename = 'index.html'
     html_filepath = os.path.join(folder_name, filename)
-    print('Saving HTML to', html_filepath)
     with open(html_filepath, 'wb') as f:
         f.write(data)
     return html_filepath
-

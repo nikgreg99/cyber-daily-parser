@@ -1,11 +1,13 @@
 from psycopg2 import connect
 from psycopg2 import Error
 
-table_names = ['cyber_daily_article','cyber_daily_vulnerability','cyber_daily_malware','cyber_daily_suspicious_ip']
+table_names = ['cyber_daily_article','cyber_daily_vulnerability','cyber_daily_malware','cyber_daily_suspicious_ip','cyber_daily_podcast']
 
 def create_postgresql_connection(user,password,database,host='localhost',port='5432'):
     try:
-        psql_connection = connect(user=user,host=host,password=password,dbname=database)
+        psql_connection = connect(user=user,host
+        =host,password=password,dbname=database)
+        psql_connection.set_client_encoding('UTF8')
         psql_connection.autocommit = True
         cursor = psql_connection.cursor()
         print("PostgreSQL server info", psql_connection.get_dsn_parameters(), "\n")
@@ -22,6 +24,8 @@ def create_db_scheme(psql_connection,cursor):
     create_vulnerability_scheme(cursor)
     create_malware_scheme(cursor)
     create_suspicious_ip_scheme(cursor)
+    create_podcast_scheme(cursor)
+
 
 def create_article_scheme(cursor):
     cursor.execute(f'''
@@ -49,7 +53,13 @@ def create_malware_scheme(cursor):
         );
     ''')
 
-
+def create_podcast_scheme(cursor):
+    cursor.execute(f'''
+        CREATE TABLE IF NOT EXISTS {table_names[4]}(
+            title TEXT NOT NULL,
+            short_text TEXT NOT NULL
+        );
+    ''')
 
 def create_suspicious_ip_scheme(cursor):
      cursor.execute(f'''
@@ -72,6 +82,9 @@ def save_vulnerability(cursor,cve_name,hits,related_product_list):
 
 def save_malware(cursor,malware,hits,target_list):
     cursor.execute('INSERT INTO cyber_daily_malware (name,hits,targets) VALUES(%s,%s,%s);',(malware,hits,target_list))
+
+def save_podcast(cursor,text,short_text):
+     cursor.execute(f'''INSERT INTO {table_names[4]} (title,short_text) VALUES(%s,%s);''',(text,short_text))
 
 def close_postgresql_connection(psql_connection, cursor):
     if psql_connection:
