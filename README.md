@@ -2,7 +2,7 @@
 
 ## Description
 
-Cyber Threat Intelligence is the basis for preventing a large number of cyber attacks. This small project is aims to collect all the information that come from a powerful intelligence source: Cyber Daily Newsletter. This newsletter contains different information about new threats focusing on: vulnerability exploits, malware and suspicious IP address. The project access to your mail inbox, download all the newsletter and save the data inside a PostgreSQL database.
+Cyber Threat Intelligence is the basis for preventing a large number of cyber attacks. This small project is aims to collect all the information that come from a powerful intelligence source: Cyber Daily Newsletter. This newsletter contains different information about new threats focusing on: vulnerability exploits, malware and suspicious IP addresses. The project access to your mail inbox, download all the newsletter and save the data inside a PostgreSQL database.
 
 ## How install the project
 
