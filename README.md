@@ -34,7 +34,7 @@ pip3 install imapt-tools psycopg2 bs4 html2text
 
 Type the following command to run the project:
 ```python
-    python3 client.exe imap_server mail password
+python3 client.exe imap_server mail password
 ```
 This sample helps you how and in which order customize the parameters according to your needs.
 
