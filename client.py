@@ -8,7 +8,7 @@ import sys
 
 def main():
     psql_connection,cursor = create_postgresql_connection('cyber_daily','cyber_daily','cyber_daily_newsletter')
-    create_db_scheme(psql_connection,cursor)
+    create_db_scheme(cursor)
     if sys.argv[1] == '-- info':
         print("\nThis parser allows you to extract information "
               "about Cyber Daily Newsletter released by Recorded Future")
@@ -22,7 +22,7 @@ def main():
         mailbox = login_mailbox(imap,email,password)
         fetch_messages(mailbox,'Cyber Daily',cursor)
     else:
-        print("\n Insufficient numbers of params")
+        print("\n Insufficient numbers of parameters")
 
     close_postgresql_connection(psql_connection,cursor)
 

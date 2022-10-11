@@ -6,6 +6,7 @@ table_names = ['cyber_daily_article','cyber_daily_vulnerability','cyber_daily_ma
 def create_postgresql_connection(user,password,database,host='localhost', port='5432'):
     try:
         psql_connection = connect(user=user,host=host,password=password,dbname=database,port=port)
+        psql_connection.set_client_encoding('UTF-8')
         psql_connection.autocommit = True
         cursor = psql_connection.cursor()
         print("PostgreSQL server info", psql_connection.get_dsn_parameters(), "\n")
@@ -17,7 +18,7 @@ def create_postgresql_connection(user,password,database,host='localhost', port='
         print("Error while try connecting PostgreSQL", error)
 
 
-def create_db_scheme(psql_connection,cursor):
+def create_db_scheme(cursor):
     create_article_scheme(cursor)
     create_vulnerability_scheme(cursor)
     create_malware_scheme(cursor)
