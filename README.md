@@ -27,7 +27,7 @@ The project requires the following dependencies:
 
 Use the following command to install the necessary dependencies in your **venv**:
 ```python
-pip3 install imapt-tools psycopg2 bs4 html2text
+pip3 install imap-tools psycopg2 bs4 html2text
 ```
 
 ## How run the project
