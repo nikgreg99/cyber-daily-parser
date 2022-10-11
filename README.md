@@ -1,4 +1,4 @@
-# Cyber Daily Neswletter Parser
+# Cyber Daily Newsletter Parser
 
 ## Description
 
