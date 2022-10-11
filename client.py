@@ -1,8 +1,6 @@
 #from gmail_service import search_messages, read_message, gmail_authenticate
 from mail_service import login_mailbox, fetch_messages
 from db_manager import create_postgresql_connection,create_db_scheme,close_postgresql_connection
-from cyber_parser import parse_cyber_daily_newsletter
-
 import sys
 
 
