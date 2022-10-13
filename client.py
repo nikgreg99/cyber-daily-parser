@@ -12,7 +12,6 @@ def main():
               "about Cyber Daily Newsletter released by Recorded Future")
     if sys.argv[1] == '-- help':
         print("\nYou have to enter the following arguments to run this script: imap server, mail, password")
-
     if len(sys.argv) == 4:
         imap = sys.argv[1]
         email = sys.argv[2]
@@ -23,8 +22,6 @@ def main():
         print("\n Insufficient numbers of parameters")
 
     close_postgresql_connection(psql_connection,cursor)
-
-
 
 if __name__ == '__main__':
     main()

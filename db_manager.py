@@ -1,3 +1,4 @@
+from this import d
 from psycopg2 import connect
 from psycopg2 import Error
 
@@ -52,14 +53,6 @@ def create_malware_scheme(cursor):
         );
     ''')
 
-def create_podcast_scheme(cursor):
-    cursor.execute(f'''
-        CREATE TABLE IF NOT EXISTS {table_names[4]}(
-            title TEXT NOT NULL,
-            short_text TEXT NOT NULL
-        );
-    ''')
-
 def create_suspicious_ip_scheme(cursor):
      cursor.execute(f'''
         CREATE TABLE IF NOT EXISTS {table_names[3]}(
@@ -69,18 +62,26 @@ def create_suspicious_ip_scheme(cursor):
         );
     ''')
 
+def create_podcast_scheme(cursor):
+    cursor.execute(f'''
+        CREATE TABLE IF NOT EXISTS {table_names[4]}(
+            title TEXT NOT NULL,
+            short_text TEXT NOT NULL
+        );
+    ''')
+
 
 def save_article(cursor,title,short_text):
     cursor.execute(f'''INSERT INTO {table_names[0]} (title,short_text) VALUES(%s,%s);''',(title,short_text))
 
-def save_supsicious_ip(cursor,ip_address,hits,first_time_seen):
-    cursor.execute('INSERT INTO cyber_daily_suspicious_ip (ip_address,hits,first_time_seen) VALUES(%s,%s,%s);',(ip_address,hits,first_time_seen))
-
 def save_vulnerability(cursor,cve_name,hits,related_product_list):
-    cursor.execute('INSERT INTO cyber_daily_vulnerability (cve_name,hits,related_products) VALUES(%s,%s,%s);',(cve_name,hits,related_product_list))
+    cursor.execute(f'INSERT INTO {table_names[1]} (cve_name,hits,related_products) VALUES(%s,%s,%s);',(cve_name,hits,related_product_list))
 
 def save_malware(cursor,malware,hits,target_list):
-    cursor.execute('INSERT INTO cyber_daily_malware (name,hits,targets) VALUES(%s,%s,%s);',(malware,hits,target_list))
+    cursor.execute(f'INSERT INTO {table_names[2]} (name,hits,targets) VALUES(%s,%s,%s);',(malware,hits,target_list))
+    
+def save_suspicious_ip(cursor,ip_address,hits,first_time_seen):
+    cursor.execute(f'INSERT INTO {table_names[3]} (ip_address,hits,first_time_seen) VALUES(%s,%s,%s);',(ip_address,hits,first_time_seen))
 
 def save_podcast(cursor,text,short_text):
      cursor.execute(f'''INSERT INTO {table_names[4]} (title,short_text) VALUES(%s,%s);''',(text,short_text))
