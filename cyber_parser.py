@@ -4,7 +4,7 @@ import os
 import html2text
 import re
 
-from db_manager import save_article, save_malware, save_podcast, save_supsicious_ip, save_vulnerability
+from db_manager import save_article, save_malware, save_podcast, save_suspicious_ip, save_vulnerability
 
 
 def parse_cyber_daily_newsletter(file_path,cursor):
@@ -36,7 +36,7 @@ def replace_with_empty_string(items, pattern):
         items[i] = re.sub(pattern, '', items[i].rstrip())
 
 
-def read_line_at(file):
+def read_file_at_(file):
     content = ''
     while file:
         line = file.readline()
@@ -60,7 +60,6 @@ def cyber_daily_html_to_text(folder):
     with open(text_filepath, 'w', encoding='utf-8') as f:
         for line in html_to_text_obj.handle(str(soup)):
             f.write(line)
-        f.seek(0)
     return text_filepath
 
 
@@ -72,14 +71,15 @@ def is_podcast_section(file):
 
 # STATUS: OK
 def parse_podcast(file, last_pos,cursor):
+    #Here a for loop wasn't used cause a podcast may appear once (not always)
     file.seek(last_pos)
     print('*** PODCAST ***')
-    podcast_title = read_line_at(file)
+    podcast_title = read_file_at_(file)
     podcast_title = re.sub('## Podcast: ','',podcast_title)
     podcast_title = re.sub('\n','',podcast_title)
     print('Podcast title: ', podcast_title)
-    read_line_at(file)
-    podcast_text =  read_line_at(file)
+    read_file_at_(file)
+    podcast_text =  read_file_at_(file)
     print('Podcast text: ',podcast_text)
     save_podcast(cursor,podcast_title,podcast_text)
 
@@ -89,23 +89,23 @@ def parse_article(file,cursor):
     last_pos = skip_lines(file, '##')
     file.seek(last_pos)
     print('***  ARTICLES    ***')
-    is_not_block_ended = True
-    while is_not_block_ended:
+    is_block_ended = True
+    while is_block_ended:
         title = ''
         while True:
           line = file.readline()
-          is_not_block_ended = False if '## Exploited Vulnerabilities' in line else True
-          if not is_not_block_ended or line == '\n':
+          is_block_ended = False if '## Exploited Vulnerabilities' in line else True
+          if not is_block_ended or line == '\n':
                 break
           title += line
-        if not is_not_block_ended:
+        if not is_block_ended:
             break
         title = re.sub('## ', '', title)
         title = re.sub('\n', '', title)
         print('Title:', title)
-        # Skip image URL
-        read_line_at(file)
-        text = read_line_at(file)
+        # Skip image URL (not particulary relevant)
+        read_file_at_(file)
+        text = read_file_at_(file)
         text = re.sub('\n', '', text)
         print('Text:', text)
         save_article(cursor,title,text)
@@ -115,9 +115,9 @@ def parse_article(file,cursor):
 def parse_exploited_vulnerability(file,cursor):
     file.readline()
     print('***  VULNERABILITY EXPLOIT   ***')
-    is_not_block_ended = True
+    is_block_ended = True
     # Check if block is ended
-    while is_not_block_ended:
+    while is_block_ended:
         cve = file.readline()
         cve = re.sub('\n', '', cve)
         print('CVE:', cve)
@@ -126,12 +126,12 @@ def parse_exploited_vulnerability(file,cursor):
         hits_and_products = ''
         while True:
             line = file.readline()
-            is_not_block_ended = False if '## Malware' in line else True
-            if not is_not_block_ended or line == "\n":
+            is_block_ended = False if '## Malware' in line else True
+            if not is_block_ended or line == "\n":
                 break
             hits_and_products += line
-        # Split hits and products using the following format: Hits: number | Related products: Product 1, Product 2
         if '|' in hits_and_products: 
+            # Split hits and products using the following format: Hits: number | Related products: Product 1, Product 2
             hits, products = hits_and_products.split('|')
             num_hits = hits[6:]
             product_list = products.split(',')
@@ -139,8 +139,8 @@ def parse_exploited_vulnerability(file,cursor):
             replace_with_empty_string(product_list, '\n')
         else:
             num_hits = hits_and_products[6:]
+            #Workaround for inserting always a list, also when there aren't related products 
             product_list = []
-        # Means that we have both hits and related_products
         print('Hits:', num_hits)
         if product_list:
             print('Products: ', product_list)
@@ -202,14 +202,14 @@ def parse_suspicious_ip_section(file,cursor):
         # Read blank line
         file.readline()
         # Splits hits and first seen information using the following format: Hits: number | First seen on Recorded Future: Date
-        hits, first_time_seen = file.readline().split('|')
-         # Filter useless words: Here it has been shortcut the string 'Hits:'
+        hits, first_seen = file.readline().split('|')
+        # Filter useless words: Here it has been shortcut the string 'Hits:'
         num_hits = hits[6:]
         # Filter useless words: Here it has been shortcut the string 'First seen on Recorded Future'
-        first_time_seen = first_time_seen[34:]
-        first_time_seen = re.sub('\n', '', first_time_seen)
+        first_seen = first_seen[34:]
+        first_seen = re.sub('\n', '', first_seen)
         print('Hits:', num_hits)
-        print('First seen on Recorded future: ', first_time_seen)
-        save_supsicious_ip(cursor,ip_address,num_hits,first_time_seen)
+        print('First seen on Recorded future: ', first_seen)
+        save_suspicious_ip(cursor,ip_address,num_hits,first_seen)
         # Read blank line
         file.readline()
