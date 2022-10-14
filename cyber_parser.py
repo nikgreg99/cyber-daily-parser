@@ -89,16 +89,16 @@ def parse_article(file,cursor):
     last_pos = skip_lines(file, '##')
     file.seek(last_pos)
     print('***  ARTICLES    ***')
-    is_block_ended = True
-    while is_block_ended:
+    is_not_ended = True
+    while is_not_ended:
         title = ''
         while True:
           line = file.readline()
-          is_block_ended = False if '## Exploited Vulnerabilities' in line else True
-          if not is_block_ended or line == '\n':
+          is_not_ended = False if '## Exploited Vulnerabilities' in line else True
+          if not is_not_ended or line == '\n':
                 break
           title += line
-        if not is_block_ended:
+        if not is_not_ended:
             break
         title = re.sub('## ', '', title)
         title = re.sub('\n', '', title)
@@ -115,9 +115,9 @@ def parse_article(file,cursor):
 def parse_exploited_vulnerability(file,cursor):
     file.readline()
     print('***  VULNERABILITY EXPLOIT   ***')
-    is_block_ended = True
+    is_not_end = True
     # Check if block is ended
-    while is_block_ended:
+    while is_not_end:
         cve = file.readline()
         cve = re.sub('\n', '', cve)
         print('CVE:', cve)
@@ -126,8 +126,8 @@ def parse_exploited_vulnerability(file,cursor):
         hits_and_products = ''
         while True:
             line = file.readline()
-            is_block_ended = False if '## Malware' in line else True
-            if not is_block_ended or line == "\n":
+            is_not_end = False if '## Malware' in line else True
+            if not is_not_end or line == "\n":
                 break
             hits_and_products += line
         if '|' in hits_and_products: 
@@ -152,8 +152,8 @@ def parse_malware(file,cursor):
     print('***  MALWARE   ***')
     # Empty Line
     file.readline()
-    is_not_block_ended = True
-    while is_not_block_ended:
+    is_not_end = True
+    while is_not_end:
         # Malware name
         malware = file.readline()
         malware = re.sub('\n', '', malware)
@@ -164,8 +164,8 @@ def parse_malware(file,cursor):
         while True:
             line = file.readline()
             # Check for Malware section ending
-            is_not_block_ended = False if '## Suspicious IP Addresses' in line else True
-            if not is_not_block_ended or line == '\n':
+            is_not_end = False if '## Suspicious IP Addresses' in line else True
+            if not is_not_end or line == '\n':
                 break
             hits_and_targets += line
         # Split hits and target using the following format: Hits: number | Targets Target1, Target2
